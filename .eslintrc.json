@@ -27,7 +27,7 @@
         "arrow-spacing": 2,
         "comma-spacing": 2,
         "comma-style": 2,
-        "indent": [2, 4, {"SwitchCase": 1}],
+        "indent": [1, 4, {"SwitchCase": 1}],
         "no-var": 2,
         "no-bitwise": 0,
         "no-alert": 2,
@@ -41,6 +41,8 @@
         "space-before-blocks": 2,
         "space-before-function-paren": [2, {"anonymous": "always", "named": "never"}],
         "space-in-parens": [2, "never"],
-        "space-infix-ops": 2
+        "space-infix-ops": 2,
+        "no-useless-escape": 1,
+        "no-prototype-builtins": 1
     }
 }

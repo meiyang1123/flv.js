@@ -69,30 +69,6 @@ function doLint(paths, exit) {
         .pipe(exit ? eslint.failAfterError() : eslint.result(function () {}));
 }
 
-gulp.task('default', ['clean', 'lint', 'build']);
-gulp.task('release', ['clean', 'lint', 'build', 'minimize']);
-
-gulp.task('watch', ['clean'], function () {
-    let gulpWatcher = gulp.watch(['gulpfile.js', 'src/**/*.js']);
-
-    gulpWatcher.on('change', function (e) {
-        if (e.type === 'changed' || e.type === 'added') {
-            return doLint(e.path, false);
-        }
-    });
-
-    return doBundle(doWatchify()).on('end', function () {
-        browserSync.init({
-            server: {
-                baseDir: './'
-            },
-            port: 8000,
-            open: false
-        });
-        require('opn')('http://localhost:8000/demo/index.html');
-    });
-});
-
 gulp.task('clean', function () {
     return del([
         'dist/*'
@@ -103,7 +79,7 @@ gulp.task('lint', function () {
     return doLint(['gulpfile.js', 'src/**/*.js'], true);
 });
 
-gulp.task('build', ['clean', 'lint'], function () {
+gulp.task('build', gulp.series('clean', 'lint'), function () {
     let b = browserify({
         entries: 'src/index.js',
         standalone: 'flvjs',
@@ -115,7 +91,7 @@ gulp.task('build', ['clean', 'lint'], function () {
     return doBundle(b);
 });
 
-gulp.task('minimize', ['lint', 'build'], function () {
+gulp.task('minimize', gulp.series('build'), function () {
     let options = {
         sourceMap: true,
         sourceMapIncludeSources: true,
@@ -139,4 +115,28 @@ gulp.task('minimize', ['lint', 'build'], function () {
             .on('error', console.error.bind(console))
         .pipe(sourcemaps.write('./'))
         .pipe(gulp.dest('./dist/'));
+});
+
+gulp.task('default', gulp.series('build'));
+gulp.task('release', gulp.series('minimize'));
+
+gulp.task('watch', gulp.series('clean'), function () {
+    let gulpWatcher = gulp.watch(['gulpfile.js', 'src/**/*.js']);
+
+    gulpWatcher.on('change', function (e) {
+        if (e.type === 'changed' || e.type === 'added') {
+            return doLint(e.path, false);
+        }
+    });
+
+    return doBundle(doWatchify()).on('end', function () {
+        browserSync.init({
+            server: {
+                baseDir: './'
+            },
+            port: 8000,
+            open: false
+        });
+        require('opn')('http://localhost:8000/demo/index.html');
+    });
 });
