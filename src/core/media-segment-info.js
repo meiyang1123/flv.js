@@ -157,7 +157,7 @@ export class MediaSegmentInfoList {
         while (lbound <= ubound) {
             mid = lbound + Math.floor((ubound - lbound) / 2);
             if (mid === last || (originalBeginDts > list[mid].lastSample.originalDts &&
-                                (originalBeginDts < list[mid + 1].originalBeginDts))) {
+                (originalBeginDts < list[mid + 1].originalBeginDts))) {
                 idx = mid;
                 break;
             } else if (list[mid].originalBeginDts < originalBeginDts) {
@@ -180,10 +180,10 @@ export class MediaSegmentInfoList {
         let insertIdx = 0;
 
         if (lastAppendIdx !== -1 && lastAppendIdx < list.length &&
-                                    msi.originalBeginDts >= list[lastAppendIdx].lastSample.originalDts &&
-                                    ((lastAppendIdx === list.length - 1) ||
-                                    (lastAppendIdx < list.length - 1 &&
-                                    msi.originalBeginDts < list[lastAppendIdx + 1].originalBeginDts))) {
+            msi.originalBeginDts >= list[lastAppendIdx].lastSample.originalDts &&
+            ((lastAppendIdx === list.length - 1) ||
+                (lastAppendIdx < list.length - 1 &&
+                    msi.originalBeginDts < list[lastAppendIdx + 1].originalBeginDts))) {
             insertIdx = lastAppendIdx + 1;  // use cached location idx
         } else {
             if (list.length > 0) {

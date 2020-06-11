@@ -18,8 +18,8 @@
 
 import EventEmitter from 'events';
 import PlayerEvents from './player-events.js';
-import {createDefaultConfig} from '../config.js';
-import {InvalidArgumentException, IllegalStateException} from '../utils/exception.js';
+import { createDefaultConfig } from '../config.js';
+import { InvalidArgumentException, IllegalStateException } from '../utils/exception.js';
 
 // Player wrapper for browser's native player (HTMLVideoElement) without MediaSource src. 
 class NativePlayer {
@@ -126,7 +126,7 @@ class NativePlayer {
         this._mediaElement.load();
         this._statisticsReporter = window.setInterval(
             this._reportStatisticsInfo.bind(this),
-        this._config.statisticsInfoReportInterval);
+            this._config.statisticsInfoReportInterval);
     }
 
     unload() {
@@ -235,7 +235,7 @@ class NativePlayer {
             info.decodedFrames = decoded;
             info.droppedFrames = dropped;
         }
-        
+
         return info;
     }
 

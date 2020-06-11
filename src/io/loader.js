@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-import {NotImplementedException} from '../utils/exception.js';
+import { NotImplementedException } from '../utils/exception.js';
 
 export const LoaderStatus = {
     kIdle: 0,

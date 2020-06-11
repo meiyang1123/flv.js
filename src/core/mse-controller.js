@@ -20,8 +20,8 @@ import EventEmitter from 'events';
 import Log from '../utils/logger.js';
 import Browser from '../utils/browser.js';
 import MSEEvents from './mse-events.js';
-import {SampleInfo, IDRSampleList} from './media-segment-info.js';
-import {IllegalStateException} from '../utils/exception.js';
+import { SampleInfo, IDRSampleList } from './media-segment-info.js';
+import { IllegalStateException } from '../utils/exception.js';
 
 // Media Source Extensions controller
 class MSEController {
@@ -195,7 +195,7 @@ class MSEController {
                     sb.addEventListener('updateend', this.e.onSourceBufferUpdateEnd);
                 } catch (error) {
                     Log.e(this.TAG, error.message);
-                    this._emitter.emit(MSEEvents.ERROR, {code: error.code, msg: error.message});
+                    this._emitter.emit(MSEEvents.ERROR, { code: error.code, msg: error.message });
                     return;
                 }
             } else {
@@ -271,7 +271,7 @@ class MSEController {
             for (let i = 0; i < sb.buffered.length; i++) {
                 let start = sb.buffered.start(i);
                 let end = sb.buffered.end(i);
-                this._pendingRemoveRanges[type].push({start, end});
+                this._pendingRemoveRanges[type].push({ start, end });
             }
 
             // if sb is not updating, let's remove ranges now!
@@ -361,11 +361,11 @@ class MSEController {
                         if (currentTime - start >= this._config.autoCleanupMaxBackwardDuration) {
                             doRemove = true;
                             let removeEnd = currentTime - this._config.autoCleanupMinBackwardDuration;
-                            this._pendingRemoveRanges[type].push({start: start, end: removeEnd});
+                            this._pendingRemoveRanges[type].push({ start: start, end: removeEnd });
                         }
                     } else if (end < currentTime) {
                         doRemove = true;
-                        this._pendingRemoveRanges[type].push({start: start, end: end});
+                        this._pendingRemoveRanges[type].push({ start: start, end: end });
                     }
                 }
 
@@ -466,7 +466,7 @@ class MSEController {
                         this._isBufferFull = true;
                     } else {
                         Log.e(this.TAG, error.message);
-                        this._emitter.emit(MSEEvents.ERROR, {code: error.code, msg: error.message});
+                        this._emitter.emit(MSEEvents.ERROR, { code: error.code, msg: error.message });
                     }
                 }
             }

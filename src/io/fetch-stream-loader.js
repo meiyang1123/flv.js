@@ -18,8 +18,8 @@
 
 import Log from '../utils/logger.js';
 import Browser from '../utils/browser.js';
-import {BaseLoader, LoaderStatus, LoaderErrors} from './loader.js';
-import {RuntimeException} from '../utils/exception.js';
+import { BaseLoader, LoaderStatus, LoaderErrors } from './loader.js';
+import { RuntimeException } from '../utils/exception.js';
 
 /* fetch + stream IO loader. Currently working on chrome 43+.
  * fetch provides a better alternative http API to XMLHttpRequest
@@ -146,7 +146,7 @@ class FetchStreamLoader extends BaseLoader {
             } else {
                 this._status = LoaderStatus.kError;
                 if (this._onError) {
-                    this._onError(LoaderErrors.HTTP_STATUS_CODE_INVALID, {code: res.status, msg: res.statusText});
+                    this._onError(LoaderErrors.HTTP_STATUS_CODE_INVALID, { code: res.status, msg: res.statusText });
                 } else {
                     throw new RuntimeException('FetchStreamLoader: Http code invalid, ' + res.status + ' ' + res.statusText);
                 }
@@ -154,7 +154,7 @@ class FetchStreamLoader extends BaseLoader {
         }).catch((e) => {
             this._status = LoaderStatus.kError;
             if (this._onError) {
-                this._onError(LoaderErrors.EXCEPTION, {code: -1, msg: e.message});
+                this._onError(LoaderErrors.EXCEPTION, { code: -1, msg: e.message });
             } else {
                 throw e;
             }
@@ -173,7 +173,7 @@ class FetchStreamLoader extends BaseLoader {
                     // Report Early-EOF
                     this._status = LoaderStatus.kError;
                     let type = LoaderErrors.EARLY_EOF;
-                    let info = {code: -1, msg: 'Fetch stream meet Early-EOF'};
+                    let info = { code: -1, msg: 'Fetch stream meet Early-EOF' };
                     if (this._onError) {
                         this._onError(type, info);
                     } else {
@@ -219,12 +219,12 @@ class FetchStreamLoader extends BaseLoader {
 
             if ((e.code === 19 || e.message === 'network error') && // NETWORK_ERR
                 (this._contentLength === null ||
-                (this._contentLength !== null && this._receivedLength < this._contentLength))) {
+                    (this._contentLength !== null && this._receivedLength < this._contentLength))) {
                 type = LoaderErrors.EARLY_EOF;
-                info = {code: e.code, msg: 'Fetch stream meet Early-EOF'};
+                info = { code: e.code, msg: 'Fetch stream meet Early-EOF' };
             } else {
                 type = LoaderErrors.EXCEPTION;
-                info = {code: e.code, msg: e.message};
+                info = { code: e.code, msg: e.message };
             }
 
             if (this._onError) {

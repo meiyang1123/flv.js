@@ -18,7 +18,7 @@
 
 import Log from '../utils/logger.js';
 import decodeUTF8 from '../utils/utf8-conv.js';
-import {IllegalStateException} from '../utils/exception.js';
+import { IllegalStateException } from '../utils/exception.js';
 
 let le = (function () {
     let buf = new ArrayBuffer(2);

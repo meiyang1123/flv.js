@@ -18,7 +18,7 @@
 
 import Log from '../utils/logger.js';
 import SpeedSampler from './speed-sampler.js';
-import {LoaderStatus, LoaderErrors} from './loader.js';
+import { LoaderStatus, LoaderErrors } from './loader.js';
 import FetchStreamLoader from './fetch-stream-loader.js';
 import MozChunkedLoader from './xhr-moz-chunked-loader.js';
 import MSStreamLoader from './xhr-msstream-loader.js';
@@ -26,7 +26,7 @@ import RangeLoader from './xhr-range-loader.js';
 import WebSocketLoader from './websocket-loader.js';
 import RangeSeekHandler from './range-seek-handler.js';
 import ParamSeekHandler from './param-seek-handler.js';
-import {RuntimeException, IllegalStateException, InvalidArgumentException} from '../utils/exception.js';
+import { RuntimeException, IllegalStateException, InvalidArgumentException } from '../utils/exception.js';
 
 /**
  * DataSource: {
@@ -265,7 +265,7 @@ class IOController {
     }
 
     open(optionalFrom) {
-        this._currentRange = {from: 0, to: -1};
+        this._currentRange = { from: 0, to: -1 };
         if (optionalFrom) {
             this._currentRange.from = optionalFrom;
         }
@@ -336,8 +336,8 @@ class IOController {
         this._loader.destroy();
         this._loader = null;
 
-        let requestRange = {from: bytes, to: -1};
-        this._currentRange = {from: requestRange.from, to: -1};
+        let requestRange = { from: bytes, to: -1 };
+        this._currentRange = { from: requestRange.from, to: -1 };
 
         this._speedSampler.reset();
         this._stashSize = this._stashInitialSize;

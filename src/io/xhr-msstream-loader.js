@@ -17,8 +17,8 @@
  */
 
 import Log from '../utils/logger.js';
-import {BaseLoader, LoaderStatus, LoaderErrors} from './loader.js';
-import {RuntimeException} from '../utils/exception.js';
+import { BaseLoader, LoaderStatus, LoaderErrors } from './loader.js';
+import { RuntimeException } from '../utils/exception.js';
 
 /* Notice: ms-stream may cause IE/Edge browser crash if seek too frequently!!!
  * The browser may crash in wininet.dll. Disable for now.
@@ -212,7 +212,7 @@ class MSStreamLoader extends BaseLoader {
             } else {
                 this._status = LoaderStatus.kError;
                 if (this._onError) {
-                    this._onError(LoaderErrors.HTTP_STATUS_CODE_INVALID, {code: xhr.status, msg: xhr.statusText});
+                    this._onError(LoaderErrors.HTTP_STATUS_CODE_INVALID, { code: xhr.status, msg: xhr.statusText });
                 } else {
                     throw new RuntimeException('MSStreamLoader: Http code invalid, ' + xhr.status + ' ' + xhr.statusText);
                 }
@@ -230,7 +230,7 @@ class MSStreamLoader extends BaseLoader {
     _xhrOnError(e) {
         this._status = LoaderStatus.kError;
         let type = LoaderErrors.EXCEPTION;
-        let info = {code: -1, msg: e.constructor.name + ' ' + e.type};
+        let info = { code: -1, msg: e.constructor.name + ' ' + e.type };
 
         if (this._onError) {
             this._onError(type, info);
@@ -290,10 +290,10 @@ class MSStreamLoader extends BaseLoader {
 
         if (this._contentLength && this._receivedLength < this._contentLength) {
             type = LoaderErrors.EARLY_EOF;
-            info = {code: -1, msg: 'MSStream meet Early-Eof'};
+            info = { code: -1, msg: 'MSStream meet Early-Eof' };
         } else {
             type = LoaderErrors.EARLY_EOF;
-            info = {code: -1, msg: e.constructor.name + ' ' + e.type};
+            info = { code: -1, msg: e.constructor.name + ' ' + e.type };
         }
 
         if (this._onError) {

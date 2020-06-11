@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-import {IllegalStateException, InvalidArgumentException} from '../utils/exception.js';
+import { IllegalStateException, InvalidArgumentException } from '../utils/exception.js';
 
 // Exponential-Golomb buffer decoder
 class ExpGolomb {

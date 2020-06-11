@@ -18,8 +18,8 @@
 
 import Log from '../utils/logger.js';
 import SpeedSampler from './speed-sampler.js';
-import {BaseLoader, LoaderStatus, LoaderErrors} from './loader.js';
-import {RuntimeException} from '../utils/exception.js';
+import { BaseLoader, LoaderStatus, LoaderErrors } from './loader.js';
+import { RuntimeException } from '../utils/exception.js';
 
 // Universal IO Loader, implemented by adding Range header in xhr's request header
 class RangeLoader extends BaseLoader {
@@ -99,7 +99,7 @@ class RangeLoader extends BaseLoader {
         if (!this._totalLengthReceived && !useRefTotalLength) {
             // We need total filesize
             this._waitForTotalLength = true;
-            this._internalOpen(this._dataSource, {from: 0, to: -1});
+            this._internalOpen(this._dataSource, { from: 0, to: -1 });
         } else {
             // We have filesize, start loading
             this._openSubRange();
@@ -118,7 +118,7 @@ class RangeLoader extends BaseLoader {
             }
         }
 
-        this._currentRequestRange = {from, to};
+        this._currentRequestRange = { from, to };
         this._internalOpen(this._dataSource, this._currentRequestRange);
     }
 
@@ -212,7 +212,7 @@ class RangeLoader extends BaseLoader {
             } else {
                 this._status = LoaderStatus.kError;
                 if (this._onError) {
-                    this._onError(LoaderErrors.HTTP_STATUS_CODE_INVALID, {code: xhr.status, msg: xhr.statusText});
+                    this._onError(LoaderErrors.HTTP_STATUS_CODE_INVALID, { code: xhr.status, msg: xhr.statusText });
                 } else {
                     throw new RuntimeException('RangeLoader: Http code invalid, ' + xhr.status + ' ' + xhr.statusText);
                 }
@@ -346,12 +346,12 @@ class RangeLoader extends BaseLoader {
         let info = null;
 
         if (this._contentLength && this._receivedLength > 0
-                                && this._receivedLength < this._contentLength) {
+            && this._receivedLength < this._contentLength) {
             type = LoaderErrors.EARLY_EOF;
-            info = {code: -1, msg: 'RangeLoader meet Early-Eof'};
+            info = { code: -1, msg: 'RangeLoader meet Early-Eof' };
         } else {
             type = LoaderErrors.EXCEPTION;
-            info = {code: -1, msg: e.constructor.name + ' ' + e.type};
+            info = { code: -1, msg: e.constructor.name + ' ' + e.type };
         }
 
         if (this._onError) {

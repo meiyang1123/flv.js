@@ -17,8 +17,8 @@
  */
 
 import Log from '../utils/logger.js';
-import {BaseLoader, LoaderStatus, LoaderErrors} from './loader.js';
-import {RuntimeException} from '../utils/exception.js';
+import { BaseLoader, LoaderStatus, LoaderErrors } from './loader.js';
+import { RuntimeException } from '../utils/exception.js';
 
 // For FLV over WebSocket live stream
 class WebSocketLoader extends BaseLoader {
@@ -62,7 +62,7 @@ class WebSocketLoader extends BaseLoader {
         } catch (e) {
             this._status = LoaderStatus.kError;
 
-            let info = {code: e.code, msg: e.message};
+            let info = { code: e.code, msg: e.message };
 
             if (this._onError) {
                 this._onError(LoaderErrors.EXCEPTION, info);
@@ -111,7 +111,7 @@ class WebSocketLoader extends BaseLoader {
             reader.readAsArrayBuffer(e.data);
         } else {
             this._status = LoaderStatus.kError;
-            let info = {code: -1, msg: 'Unsupported WebSocket message type: ' + e.data.constructor.name};
+            let info = { code: -1, msg: 'Unsupported WebSocket message type: ' + e.data.constructor.name };
 
             if (this._onError) {
                 this._onError(LoaderErrors.EXCEPTION, info);
